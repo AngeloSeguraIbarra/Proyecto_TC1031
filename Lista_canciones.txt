@@ -1,0 +1,6 @@
+nombre,artista,genero,vistas,lanzamiento,duracion
+buggati,Autor1,Pop,89,2020,3.5
+cologne,Autor2,Rock,40,2014,4.0
+diamantes,Autor2,Rock,20,2018,5.0
+la gitanilla,Autor2,Rock,100,2016,4.2
+morritas,Autor2,Rock,230,2024,2.1
