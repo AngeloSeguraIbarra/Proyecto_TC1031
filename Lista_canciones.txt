@@ -1,6 +1,83 @@
 nombre,artista,genero,vistas,lanzamiento,duracion
-buggati,Autor1,Pop,89,2020,3.5
-cologne,Autor2,Rock,40,2014,4.0
-diamantes,Autor2,Rock,20,2018,5.0
-la gitanilla,Autor2,Rock,100,2016,4.2
-morritas,Autor2,Rock,230,2024,2.1
+Shape of You,Ed Sheeran,Pop,1000000,2017,3.5
+Blinding Lights,The Weeknd,R&B,1500000,2020,3.2
+Watermelon Sugar,Harry Styles,Pop,900000,2019,2.5
+Rolling in the Deep,Adele,Soul,800000,2010,3.9
+Senorita,Shawn Mendes,Pop,750000,2019,3.4
+Old Town Road,Lil Nas X,Country,1400000,2019,2.8
+Bad Guy,Billie Eilish,Pop,1600000,2019,3.1
+Levitating,Dua Lipa,Pop,1100000,2020,3.2
+Good 4 U,Olivia Rodrigo,Pop,1200000,2021,2.9
+Stay,Justin Bieber,Pop,1300000,2021,2.7
+Waka Waka,Shakira,Pop,1500000,2010,3.0
+Roar,Katy Perry,Pop,900000,2013,3.2
+Dark Horse,Katy Perry,Pop,850000,2014,3.1
+All of Me,John Legend,Soul,920000,2013,3.8
+Closer,The Chainsmokers,Pop,1500000,2016,3.1
+Thinking Out Loud,Ed Sheeran,Pop,1300000,2014,4.1
+Despacito,Luis Fonsi,Reggaeton,2300000,2017,3.5
+Perfect,Ed Sheeran,Pop,2000000,2017,4.0
+Uptown Funk,Bruno Mars,Pop,2200000,2014,4.2
+Havana,Camila Cabello,Pop,1800000,2017,3.0
+Sorry,Justin Bieber,Pop,1700000,2015,3.1
+Sugar,Maroon 5,Pop,1600000,2015,3.2
+Counting Stars,OneRepublic,Pop,2000000,2013,4.0
+Love Yourself,Justin Bieber,Pop,1100000,2015,3.5
+Girls Like You,Maroon 5,Pop,1700000,2018,3.3
+New Rules,Dua Lipa,Pop,1500000,2017,3.3
+Faded,Alan Walker,EDM,2000000,2015,3.4
+Wake Me Up,Avicii,EDM,1800000,2013,3.5
+Somebody That I Used to Know,Gotye,Indie,1300000,2011,4.1
+Shallow,Lady Gaga,Pop,1400000,2018,3.2
+Dance Monkey,Tones and I,Pop,1900000,2019,2.8
+Memories,Maroon 5,Pop,1200000,2019,3.1
+Say You Won't Let Go,James Arthur,Pop,1100000,2016,3.2
+Let Her Go,Passenger,Indie,800000,2012,4.0
+Believer,Imagine Dragons,Rock,2300000,2017,3.2
+Radioactive,Imagine Dragons,Rock,2400000,2012,3.4
+Counting Sheep,Safakash,Indie,300000,2021,3.0
+Faded Love,Leony,EDM,700000,2020,2.5
+Rockstar,Post Malone,Rap,1800000,2017,3.4
+Sicko Mode,Travis Scott,Rap,2000000,2018,4.1
+Goosebumps,Travis Scott,Rap,1700000,2016,3.1
+Lucid Dreams,Juice WRLD,Rap,1600000,2018,4.0
+Sunflower,Post Malone,Rap,1500000,2018,3.0
+Wow.,Post Malone,Rap,1200000,2019,3.1
+Montero,Lil Nas X,Pop,1300000,2021,3.2
+Savage Love,Jawsh 685,Pop,1000000,2020,2.5
+Mood,24kGoldn,Rap,900000,2020,2.3
+Take Me to Church,Hozier,Indie,2000000,2013,3.5
+Sweater Weather,The Neighbourhood,Indie,1400000,2013,4.1
+Roses,SAINt JHN,Rap,1500000,2016,3.1
+Blueberry Faygo,Lil Mosey,Rap,900000,2020,2.7
+Die for You,The Weeknd,R&B,700000,2016,3.3
+Peaches,Justin Bieber,R&B,900000,2021,3.2
+Holy,Justin Bieber,Pop,1000000,2020,2.9
+Heat Waves,Glass Animals,Indie,1600000,2020,3.1
+Goodbye,Post Malone,Rap,1300000,2019,3.5
+Don't Start Now,Dua Lipa,Pop,1200000,2019,3.2
+Break My Heart,Dua Lipa,Pop,1100000,2020,2.8
+Can't Feel My Face,The Weeknd,R&B,1700000,2015,3.3
+Starboy,The Weeknd,R&B,2200000,2016,3.5
+Rings,Ariana Grande,Pop,1900000,2019,2.9
+Thank u next,Ariana Grande,Pop,1600000,2018,3.0
+Positions,Ariana Grande,Pop,1000000,2020,2.8
+Without Me,Halsey,Pop,1400000,2018,3.3
+Eastside,Benny Blanco,Pop,900000,2018,3.2
+Beautiful People,Ed Sheeran,Pop,1200000,2019,3.2
+Sunflower,Post Malone,Rap,1300000,2018,2.9
+Meant to Be,Bebe Rexha,Country,1500000,2017,3.3
+Wolves,Selena Gomez,EDM,1100000,2017,3.4
+Thunder,Imagine Dragons,Rock,1800000,2017,3.3
+Whatever It Takes,Imagine Dragons,Rock,1600000,2017,3.2
+Believer,Imagine Dragons,Rock,2300000,2017,3.3
+Ghost,Justin Bieber,Pop,1000000,2021,2.7
+Peaches,Justin Bieber,R&B,1300000,2021,3.0
+Save Your Tears,The Weeknd,R&B,2000000,2020,3.4
+Take Me Back to London,Ed Sheeran,Pop,900000,2019,2.9
+Astronaut In The Ocean,Masked Wolf,Rap,800000,2021,2.5
+Montero (Call Me By Your Name),Lil Nas X,Pop,1100000,2021,3.3
+Industry Baby,Lil Nas X,Rap,1400000,2021,3.2
+Money Trees,Kendrick Lamar,Rap,1700000,2012,3.3
+Goosebumps,Travis Scott,Rap,1600000,2016,3.4
+Can't Stop the Feeling!,Justin Timberlake,Pop,1800000,2016,3.5
