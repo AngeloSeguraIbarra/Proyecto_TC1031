@@ -1,3 +1,7 @@
+/*** Angelo segura Ibarra
+    A01711723
+    Fecha:18/09/2024
+***/
 #include <iostream>  
 #include <string> 
 #include "cancion.h"
