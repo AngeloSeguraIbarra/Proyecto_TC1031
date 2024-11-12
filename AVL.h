@@ -1,7 +1,3 @@
-/*
-Angelo Segura Ibarra
-14/10/2024
-*/
 #ifndef AVL_H_
 #define AVL_H_
 
@@ -23,7 +19,7 @@ private:
 
 public:
     Node(T);
-    Node(T, Node<T>*, Node<T>*, int, int);
+    Node(T, Node<T>*, Node<T>*, int, int);  
     void agregar_cancion(T);
     std::string encontrar_cancion(const std::string&) const;
     Node<T>* eliminar_cancion(const std::string& nombre);
@@ -40,17 +36,40 @@ public:
     friend class AVL<T>;
 };
 
+/*
+ * Node<T>::Node(T val) - Constructor de nodo
+ * Complejidad temporal:
+ * - Mejor caso: O(1)
+ * - Caso promedio: O(1)
+ * - Peor caso: O(1)
+ * Descripción: Inicializa un nodo con el valor val, sin hijos y con balance y nivel en 0. La complejidad es constante porque solo inicializa variables.
+ */
 template <class T>
 Node<T>::Node(T val) : value(val), left(0), right(0), level(0), balance(0) {}
 
+/*
+ * Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal) - Constructor completo de nodo
+ * Complejidad temporal:
+ * - Mejor caso: O(1)
+ * - Caso promedio: O(1)
+ * - Peor caso: O(1)
+ * Descripción: Inicializa un nodo con el valor y los punteros a hijos especificados. La complejidad es constante debido a la inicialización simple de variables.
+ */
 template <class T>
-Node<T>::Node(T val, Node<T> *le, Node<T> *ri, int lev, int bal)
+Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal)
     : value(val), left(le), right(ri), level(lev), balance(bal) {}
 
-// Modificado para usar el atributo 'nombre' de Cancion
+/*
+ * Node<T>::agregar_cancion() - Inserta una canción en el árbol AVL.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (inserción en un nodo hoja inmediato)
+ * - Caso promedio: O(log N) (inserción en árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado similar a una lista)
+ * Descripción: Inserta un nodo en el árbol balanceado. En el caso balanceado, la complejidad es logarítmica. En el peor caso, el árbol se convierte en una lista enlazada.
+ */
 template <class T>
 void Node<T>::agregar_cancion(T val) {
-    if (val.get_nombre() < value.get_nombre()) {  // Comparar nombres de las canciones
+    if (val.get_nombre() < value.get_nombre()) {
         if (left != 0) {
             left->agregar_cancion(val);
         } else {
@@ -65,6 +84,14 @@ void Node<T>::agregar_cancion(T val) {
     }
 }
 
+/*
+ * Node<T>::encontrar_cancion() - Busca una canción por nombre en el árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si el elemento buscado está en la raíz)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: La búsqueda es O(1) si la canción está en la raíz. En promedio es logarítmica si el árbol está balanceado, y en el peor caso es lineal.
+ */
 template <class T>
 std::string Node<T>::encontrar_cancion(const std::string& nombre) const {
     if (nombre == value.get_nombre()) {
@@ -76,15 +103,21 @@ std::string Node<T>::encontrar_cancion(const std::string& nombre) const {
            << "\nDuracion: " << value.get_duracion() << " minutos\n";
         return ss.str();
     } else if (nombre < value.get_nombre() && left != 0) {
-        return left->encontrar_cancion(nombre);  // Buscar en el subárbol izquierdo
+        return left->encontrar_cancion(nombre);
     } else if (nombre > value.get_nombre() && right != 0) {
-        return right->encontrar_cancion(nombre);  // Buscar en el subárbol derecho
+        return right->encontrar_cancion(nombre);
     }
-    // Si no se encuentra la canción
     return "La canción no fue encontrada.";
 }
 
-
+/*
+ * Node<T>::eliminar_cancion() - Elimina una canción por nombre del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si el nodo a eliminar es una hoja sin hijos)
+ * - Caso promedio: O(log N) (si el árbol está balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Si el nodo a eliminar es una hoja, la eliminación es constante. Si el árbol está balanceado, es logarítmica. En el peor caso, el árbol se comporta como una lista enlazada.
+ */
 template <class T>
 Node<T>* Node<T>::eliminar_cancion(const std::string& nombre) {
     if (nombre < value.get_nombre()) {
@@ -96,39 +129,41 @@ Node<T>* Node<T>::eliminar_cancion(const std::string& nombre) {
             right = right->eliminar_cancion(nombre);
         }
     } else {
-        // Caso 1: Nodo sin hijos
         if (left == 0 && right == 0) {
             delete this;
             return nullptr;
-        }
-        // Caso 2: Nodo con un solo hijo
-        else if (left == 0) {
-            Node<T> *temp = right;
+        } else if (left == 0) {
+            Node<T>* temp = right;
             delete this;
             return temp;
         } else if (right == 0) {
-            Node<T> *temp = left;
+            Node<T>* temp = left;
             delete this;
             return temp;
-        }
-        // Caso 3: Nodo con dos hijos
-        else {
-            Node<T> *succ = right;
+        } else {
+            Node<T>* succ = right;
             while (succ->left != 0) {
                 succ = succ->left;
             }
-            value = succ->value;  // Reemplazar con el valor del sucesor
-            right = right->eliminar_cancion(succ->value.get_nombre());  // Eliminar sucesor
+            value = succ->value;
+            right = right->eliminar_cancion(succ->value.get_nombre());
         }
     }
     return this;
 }
 
+/*
+ * Node<T>::predecesor() - Encuentra el nodo predecesor.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si el predecesor es el hijo izquierdo inmediato)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Se recorre el subárbol izquierdo para encontrar el predecesor, logarítmico en un árbol balanceado.
+ */
 template <class T>
 Node<T>* Node<T>::predecesor() {
-    Node<T> *le, *ri;
-    le = left;
-    ri = right;
+    Node<T>* le = left;
+    Node<T>* ri = right;
 
     if (left == 0) {
         if (right != 0) {
@@ -143,9 +178,8 @@ Node<T>* Node<T>::predecesor() {
         return le;
     }
 
-    Node<T> *parent, *child;
-    parent = left;
-    child = left->right;
+    Node<T>* parent = left;
+    Node<T>* child = left->right;
     while (child->right != 0) {
         parent = child;
         child = child->right;
@@ -155,7 +189,14 @@ Node<T>* Node<T>::predecesor() {
     return child;
 }
 
-// Métodos adicionales que usas como remove, balance_tree y otros
+/*
+ * Node<T>::removeChilds() - Elimina todos los hijos del nodo.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si no tiene hijos)
+ * - Caso promedio: O(N/2) ≈ O(N) (en un árbol balanceado con subárboles)
+ * - Peor caso: O(N) (si el nodo es raíz de un árbol completamente desbalanceado)
+ * Descripción: Elimina todos los nodos hijo, recorriendo todo el subárbol bajo este nodo.
+ */
 template <class T>
 void Node<T>::removeChilds() {
     if (left != 0) {
@@ -170,17 +211,38 @@ void Node<T>::removeChilds() {
     }
 }
 
+/*
+ * Node<T>::inorder() - Realiza un recorrido inorder del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(N)
+ * - Caso promedio: O(N)
+ * - Peor caso: O(N)
+ * Descripción: Recorre todos los nodos del árbol en orden, la complejidad es lineal al visitar cada nodo.
+ */
 template <class T>
 void Node<T>::inorder(std::stringstream &aux) const {
     if (left != 0) {
         left->inorder(aux);
     }
-    aux << "\nNombre: " << value.get_nombre()<< "\nArtista: " << value.get_artista()<< "\ngenero: " << value.get_genero()<< "\nvistas: " << value.get_vistas()<< "\nDuracion: " << value.get_duracion() << endl;
+    aux << "\nNombre: " << value.get_nombre()
+        << "\nArtista: " << value.get_artista()
+        << "\ngenero: " << value.get_genero()
+        << "\nvistas: " << value.get_vistas()
+        << "\nDuracion: " << value.get_duracion()
+        << "\nLanzamiento: " << value.get_lanzamiento() << endl;
     if (right != 0) {
         right->inorder(aux);
     }
 }
 
+/*
+ * Node<T>::max_depth() - Calcula la profundidad máxima del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(log N) (en un árbol completamente balanceado)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Calcula la profundidad máxima del árbol recorriendo todos los nodos.
+ */
 template <class T>
 int Node<T>::max_depth() {
     int le = 0, ri = 0;
@@ -194,7 +256,14 @@ int Node<T>::max_depth() {
     return (le > ri) ? le : ri;
 }
 
-
+/*
+ * Node<T>::check_tree() - Verifica y ajusta el balance del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si no requiere balanceo)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Recorre y balancea el árbol, ajustando nodos desbalanceados.
+ */
 template <class T>
 Node<T>* Node<T>::check_tree(T *check_val, Node<T> *parent, bool *checked) {
     cout << "node value " << value.get_nombre() << " " << level << " " << balance << endl;
@@ -225,6 +294,14 @@ Node<T>* Node<T>::check_tree(T *check_val, Node<T> *parent, bool *checked) {
     return a;
 }
 
+/*
+ * Node<T>::balance_tree() - Realiza el balance del nodo actual.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si el nodo ya está balanceado)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (si el árbol está completamente desbalanceado)
+ * Descripción: Balancea el nodo actual, con una complejidad constante por rotación.
+ */
 template <class T>
 Node<T>* Node<T>::balance_tree() {
     Node<T> *a = this, *le = left, *ri = right;
@@ -249,6 +326,13 @@ Node<T>* Node<T>::balance_tree() {
     cout << "New current node value is " << a->value.get_nombre() << endl;
     return a;
 }
+
+/*
+ * Node<T>::rot_left(), rot_right(), rot_left_right(), rot_right_left() - Rotaciones para balancear el árbol.
+ * Complejidad temporal:
+ * - Complejidad: O(1)
+ * Descripción: Cada rotación individual tiene una complejidad constante.
+ */
 
 template <class T>
 Node<T>* Node<T>::rot_left(Node<T>* a) {
@@ -315,34 +399,75 @@ public:
     std::string inorder() const;
 };
 
+/*
+ * AVL<T>::AVL() - Constructor de AVL
+ * Complejidad temporal:
+ * - Mejor caso: O(1)
+ * - Caso promedio: O(1)
+ * - Peor caso: O(1)
+ * Descripción: Inicializa un árbol AVL vacío.
+ */
 template <class T>
 AVL<T>::AVL() : root(0) {}
 
+/*
+ * AVL<T>::empty() - Verifica si el árbol está vacío.
+ * Complejidad temporal: O(1)
+ * Descripción: Devuelve true si el árbol está vacío.
+ */
 template <class T>
 bool AVL<T>::empty() const {
     return (root == 0);
 }
 
+/*
+ * AVL<T>::agregar_cancion() - Inserta una canción en el árbol AVL.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (inserción directa en la raíz)
+ * - Caso promedio: O(log N) (en un árbol balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Inserta un nodo en el árbol balanceado.
+ */
 template <class T>
 void AVL<T>::agregar_cancion(T val) {
-    if (root != 0) {
-        root->agregar_cancion(val);
-    } else {
-        root = new Node<T>(val);
-    }
+    if (root != 0) root->agregar_cancion(val);
+    else root = new Node<T>(val);
 }
 
+/*
+ * AVL<T>::eliminar_cancion() - Elimina una canción por nombre en el árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si el nodo a eliminar es una hoja o la raíz)
+ * - Caso promedio: O(log N) (si el árbol está balanceado)
+ * - Peor caso: O(N) (en un árbol completamente desbalanceado)
+ * Descripción: Busca y elimina un nodo en el árbol balanceado.
+ */
 template <class T>
 void AVL<T>::eliminar_cancion(const std::string& nombre) {
-    if (root != 0) {
-        root = root->eliminar_cancion(nombre);
-    }
+    if (root != 0) root = root->eliminar_cancion(nombre);
 }
 
+/*
+ * AVL<T>::~AVL() - Destructor de AVL
+ * Complejidad temporal:
+ * - Mejor caso: O(N)
+ * - Caso promedio: O(N)
+ * - Peor caso: O(N)
+ * Descripción: Elimina todos los nodos del árbol.
+ */
 template <class T>
 AVL<T>::~AVL() {
 	removeAll();
 }
+
+/*
+ * AVL<T>::removeAll() - Elimina todos los nodos del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(N)
+ * - Caso promedio: O(N)
+ * - Peor caso: O(N)
+ * Descripción: Recorre y elimina todos los nodos del árbol.
+ */
 
 template <class T>
 void AVL<T>::removeAll() {
@@ -353,6 +478,14 @@ void AVL<T>::removeAll() {
     }
 }
 
+/*
+ * AVL<T>::encontrar_cancion() - Busca una canción por nombre.
+ * Complejidad temporal:
+ * - Mejor caso: O(1) (si está en la raíz)
+ * - Caso promedio: O(log N) (en árbol balanceado)
+ * - Peor caso: O(N) (en árbol desbalanceado)
+ * Descripción: Busca un nodo en el árbol.
+ */
 
 template <class T>
 std::string AVL<T>::encontrar_cancion(const std::string& nombre) const {
@@ -361,6 +494,15 @@ std::string AVL<T>::encontrar_cancion(const std::string& nombre) const {
     }
     return "La canción no fue encontrada.";
 }
+
+/*
+ * AVL<T>::inorder() - Realiza un recorrido inorder del árbol.
+ * Complejidad temporal:
+ * - Mejor caso: O(N)
+ * - Caso promedio: O(N)
+ * - Peor caso: O(N)
+ * Descripción: Recorre todos los nodos del árbol en orden.
+ */
 
 template <class T>
 std::string AVL<T>::inorder() const {
