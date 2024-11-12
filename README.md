@@ -19,7 +19,7 @@ En conclusion, el alogoritmo de Mergesort fue el de mejor ayuda por su rendimien
 ### Consideraciones 
 Se recomienda siempre al ingresar un string se empiece con mayusculas y siga con minusculas. Ejemplo: nombre de cancion: Mi luz.
 
-##Segundo Avance
+## Segundo avance
 
 En este avance el proyecto fue modificado en su funcionalidad y estructura, el principal cambio que se le hizo fue omitir el uso de listas y vectores, y se remplazó por el uso una estructura de un árbol AVL. El programa ahora consiste en un directorio en donde atravez de un archivo txt se extraen canciones para después ser agregadas al árbol pero ordenadas de manera alfabéticamente, también se incluyeron funciones de buscar, eliminar y agregar canciones extras al gusto del usuario.
 
@@ -28,6 +28,12 @@ La decisión de usar la estructura de un árbol AVL es que estos nos benefician 
 -Debido a su capacidad de autobalanceo, las operaciones de búsqueda, eliminación y agregación sean eficientes manteniéndose en un grado de complejidad O(log n) incluso en el peor de sus casos.
 -Tiempo de respuesta rápida en sus operaciones en comparación con otros algoritmos, gracias a su capacidad de realizar modificaciones dinámicas.
 -Funciones dinámicas que ayudan a que el árbol en todo momento funcione de una manera fluida a pesar del crecimiento que pueda tener.
+
+## Tercer avance
+
+En este avance el proyecto fue modificado, implementando una función que permite la escritura de archivos en este caso en nuestro archilo lista_canciones.txt para poder guardar los cmabios que hay al momento de agregar canciones al arbol AVL. A su vez en este avance se agregaron los analisis de complejidad de todas las funciones en el arbol AVL especificando que hace cada una, su nombre y grado de complejidad que cada una emplea. 
+
+Tambien se realizaron correciones para al momento de ingresar datos, ahora en los atributos que son float o int se da una especificaion breve de como debe de ser.
 
 
 
