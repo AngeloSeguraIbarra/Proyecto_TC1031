@@ -19,10 +19,10 @@ private:
 
 public:
     Node(T);
-    Node(T, Node<T>*, Node<T>*, int, int);  
+    Node(T, Node<T>, Node<T>, int, int);
     void agregar_cancion(T);
     std::string encontrar_cancion(const std::string&) const;
-    Node<T>* eliminar_cancion(const std::string& nombre);
+    void remove(T val);
     void removeChilds();
     void inorder(std::stringstream&) const;
 
@@ -42,21 +42,25 @@ public:
  * - Mejor caso: O(1)
  * - Caso promedio: O(1)
  * - Peor caso: O(1)
- * Descripción: Inicializa un nodo con el valor val, sin hijos y con balance y nivel en 0. La complejidad es constante porque solo inicializa variables.
+ * Descripción: Inicializa un nodo con el valor val, sin hijos y con balance 
+ * y nivel en 0. La complejidad es constante porque solo inicializa variables.
  */
 template <class T>
 Node<T>::Node(T val) : value(val), left(0), right(0), level(0), balance(0) {}
 
 /*
- * Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal) - Constructor completo de nodo
+ * Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal) - 
+ Constructor completo de nodo
  * Complejidad temporal:
  * - Mejor caso: O(1)
  * - Caso promedio: O(1)
  * - Peor caso: O(1)
- * Descripción: Inicializa un nodo con el valor y los punteros a hijos especificados. La complejidad es constante debido a la inicialización simple de variables.
+ * Descripción: Inicializa un nodo con el valor y los punteros a
+ *  hijos especificados. 
+ * La complejidad es constante debido a la inicialización simple de variables.
  */
 template <class T>
-Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal)
+Node<T>::Node(T val, Node<T> le, Node<T> ri, int lev, int bal)
     : value(val), left(le), right(ri), level(lev), balance(bal) {}
 
 /*
@@ -65,7 +69,9 @@ Node<T>::Node(T val, Node<T>* le, Node<T>* ri, int lev, int bal)
  * - Mejor caso: O(1) (inserción en un nodo hoja inmediato)
  * - Caso promedio: O(log N) (inserción en árbol balanceado)
  * - Peor caso: O(N) (en un árbol completamente desbalanceado similar a una lista)
- * Descripción: Inserta un nodo en el árbol balanceado. En el caso balanceado, la complejidad es logarítmica. En el peor caso, el árbol se convierte en una lista enlazada.
+ * Descripción: Inserta un nodo en el árbol balanceado. En el caso balanceado, 
+ * la complejidad es logarítmica. En el peor caso, 
+ * el árbol se convierte en una lista enlazada.
  */
 template <class T>
 void Node<T>::agregar_cancion(T val) {
@@ -90,7 +96,9 @@ void Node<T>::agregar_cancion(T val) {
  * - Mejor caso: O(1) (si el elemento buscado está en la raíz)
  * - Caso promedio: O(log N) (en un árbol balanceado)
  * - Peor caso: O(N) (en un árbol completamente desbalanceado)
- * Descripción: La búsqueda es O(1) si la canción está en la raíz. En promedio es logarítmica si el árbol está balanceado, y en el peor caso es lineal.
+ * Descripción: La búsqueda es O(1) si la canción está en la raíz. 
+ * En promedio es logarítmica si el árbol está balanceado,
+ *  y en el peor caso es lineal.
  */
 template <class T>
 std::string Node<T>::encontrar_cancion(const std::string& nombre) const {
@@ -116,40 +124,59 @@ std::string Node<T>::encontrar_cancion(const std::string& nombre) const {
  * - Mejor caso: O(1) (si el nodo a eliminar es una hoja sin hijos)
  * - Caso promedio: O(log N) (si el árbol está balanceado)
  * - Peor caso: O(N) (en un árbol completamente desbalanceado)
- * Descripción: Si el nodo a eliminar es una hoja, la eliminación es constante. Si el árbol está balanceado, es logarítmica. En el peor caso, el árbol se comporta como una lista enlazada.
+ * Descripción: Si el nodo a eliminar es una hoja, 
+ * la eliminación es constante. Si el árbol está balanceado, 
+ * es logarítmica. En el peor caso, el árbol se comporta como una lista enlazada.
  */
 template <class T>
-Node<T>* Node<T>::eliminar_cancion(const std::string& nombre) {
-    if (nombre < value.get_nombre()) {
-        if (left != 0) {
-            left = left->eliminar_cancion(nombre);
-        }
-    } else if (nombre > value.get_nombre()) {
-        if (right != 0) {
-            right = right->eliminar_cancion(nombre);
-        }
-    } else {
-        if (left == 0 && right == 0) {
-            delete this;
-            return nullptr;
-        } else if (left == 0) {
-            Node<T>* temp = right;
-            delete this;
-            return temp;
-        } else if (right == 0) {
-            Node<T>* temp = left;
-            delete this;
-            return temp;
-        } else {
-            Node<T>* succ = right;
-            while (succ->left != 0) {
-                succ = succ->left;
+void Node<T>::remove(T val) 
+{
+    if (val.get_nombre() < value.get_nombre()) 
+    {
+        if (left != NULL) 
+        {
+            if (left->value.get_nombre() == val.get_nombre()) 
+            {
+                Node<T>* old = left;
+                Node<T>* succ = left->predecesor();
+
+                if (succ != nullptr) 
+                {
+                    succ->left = old->left;
+                    succ->right = old->right;
+                }
+                left = succ;
+                delete old;
+            } 
+            else 
+            {
+                left->remove(val);
             }
-            value = succ->value;
-            right = right->eliminar_cancion(succ->value.get_nombre());
+        }
+    } 
+    else if (val.get_nombre() > value.get_nombre()) 
+    {
+        if (right != NULL) 
+        {
+            if (right->value.get_nombre() == val.get_nombre()) 
+            {
+                Node<T>* old = right;
+                Node<T>* succ = right->predecesor();
+
+                if (succ != nullptr) 
+                {
+                    succ->left = old->left;
+                    succ->right = old->right;
+                }
+                right = succ;
+                delete old;
+            } 
+            else 
+            {
+                right->remove(val);
+            }
         }
     }
-    return this;
 }
 
 /*
@@ -158,7 +185,8 @@ Node<T>* Node<T>::eliminar_cancion(const std::string& nombre) {
  * - Mejor caso: O(1) (si el predecesor es el hijo izquierdo inmediato)
  * - Caso promedio: O(log N) (en un árbol balanceado)
  * - Peor caso: O(N) (en un árbol completamente desbalanceado)
- * Descripción: Se recorre el subárbol izquierdo para encontrar el predecesor, logarítmico en un árbol balanceado.
+ * Descripción: Se recorre el subárbol izquierdo para encontrar el predecesor,
+ *  logarítmico en un árbol balanceado.
  */
 template <class T>
 Node<T>* Node<T>::predecesor() {
@@ -195,7 +223,8 @@ Node<T>* Node<T>::predecesor() {
  * - Mejor caso: O(1) (si no tiene hijos)
  * - Caso promedio: O(N/2) ≈ O(N) (en un árbol balanceado con subárboles)
  * - Peor caso: O(N) (si el nodo es raíz de un árbol completamente desbalanceado)
- * Descripción: Elimina todos los nodos hijo, recorriendo todo el subárbol bajo este nodo.
+ * Descripción: Elimina todos los nodos hijo, 
+ * recorriendo todo el subárbol bajo este nodo.
  */
 template <class T>
 void Node<T>::removeChilds() {
@@ -217,7 +246,8 @@ void Node<T>::removeChilds() {
  * - Mejor caso: O(N)
  * - Caso promedio: O(N)
  * - Peor caso: O(N)
- * Descripción: Recorre todos los nodos del árbol en orden, la complejidad es lineal al visitar cada nodo.
+ * Descripción: Recorre todos los nodos del árbol en orden, 
+ * la complejidad es lineal al visitar cada nodo.
  */
 template <class T>
 void Node<T>::inorder(std::stringstream &aux) const {
@@ -393,7 +423,7 @@ public:
     ~AVL();
     bool empty() const;
     void agregar_cancion(T);
-    void eliminar_cancion(const std::string&);
+    void remove(T val);
     void removeAll();
     std::string encontrar_cancion(const std::string& nombre) const;
     std::string inorder() const;
@@ -443,9 +473,29 @@ void AVL<T>::agregar_cancion(T val) {
  * Descripción: Busca y elimina un nodo en el árbol balanceado.
  */
 template <class T>
-void AVL<T>::eliminar_cancion(const std::string& nombre) {
-    if (root != 0) root = root->eliminar_cancion(nombre);
+void AVL<T>::remove(T val) 
+{
+    if (root != NULL) 
+    {
+        if (val.get_nombre() == root->value.get_nombre()) 
+        {
+            Node<T>* succ = root->predecesor();
+
+            if (succ != NULL) 
+            {
+                succ->left = root->left;
+                succ->right = root->right;
+            }
+            delete root;
+            root = succ;
+        } 
+        else 
+        {
+            root->remove(val);
+        }
+    }
 }
+
 
 /*
  * AVL<T>::~AVL() - Destructor de AVL
