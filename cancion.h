@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <string>
-
 class Cancion {
 private:
     std::string nombre;
@@ -15,11 +14,14 @@ private:
 
 public:
     // Constructor por defecto
-    Cancion() : nombre(""), artista(""), genero(""), vistas(0), lanzamiento(0), duracion(0) {}
+    Cancion() : nombre(""), artista(""), genero(""), vistas(0), lanzamiento(0),
+     duracion(0) {}
 
     // Constructor parametrizado
-    Cancion(std::string _nombre, std::string _artista, std::string _genero, float _vistas, int _lanzamiento, float _duracion) 
-        : nombre(_nombre), artista(_artista), genero(_genero), vistas(_vistas), lanzamiento(_lanzamiento), duracion(_duracion) {}
+    Cancion(std::string _nombre, std::string _artista, std::string _genero,
+     float _vistas, int _lanzamiento, float _duracion) 
+        : nombre(_nombre), artista(_artista), genero(_genero),
+         vistas(_vistas), lanzamiento(_lanzamiento), duracion(_duracion) {}
 
     // Getters
     std::string get_nombre() const { return nombre; }
@@ -41,7 +43,8 @@ public:
 
     // Función para obtener los datos de la canción en formato CSV
     std::string getCancion() const {
-        return nombre + "," + artista + "," + genero + "," + std::to_string(vistas) + "," + 
+        return nombre + "," + artista + "," + genero + "," +
+         std::to_string(vistas) + "," + 
                std::to_string(lanzamiento) + "," + std::to_string(duracion);
     }
 
