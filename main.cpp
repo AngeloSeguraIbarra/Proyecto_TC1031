@@ -97,6 +97,7 @@ int main() {
             float vistas, duracion;
             int lanzamiento;
 
+            std::cout<<"Una vez agregada la cancion guarda el inventario"<<endl;
             std::cout << "Introduce el nombre de la cancion(ej.: Sin ti ) : ";
             std::cin.ignore();
             std::getline(std::cin, nombre);
